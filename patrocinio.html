@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patrocínios - Ampharos</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/patrocinio.css"
+</head>
+<body>
+  <header>
+    <nav>
+      <ul class="menu">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="patrocinio.html">Patrocínios</a></li>
+        <li><a href="identidade_visual.html">Identidade</a></li>
+        <li><a href="contatos.html">Contatos</a></li>
+
+        <!-- Outras abas podem ser adicionadas aqui -->
+      </ul>
+    </nav>
+    <h1>Patrocínios</h1>
+  </header>
+
+  <main>
+    <section>
+      <h2>Como Funciona</h2>
+      <p>
+        Aqui você pode apoiar a Equipe Ampharos e ajudar no desenvolvimento de nossos projetos! 
+        Escolha uma das opções de patrocínio disponíveis e reserve sua posição exclusiva.
+      </p>
+      <ul>
+        <li><strong>Camisa:</strong> Espaços personalizados para logos, vendidos por cm².</li>
+        <li><strong>Pit Display:</strong> Dividido em áreas laterais e centrais, com preços variando por posição.</li>
+        <li><strong>Protótipo:</strong> Espaços vendidos por mm², com livre escolha de posicionamento.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Camisa</h2>
+      <p>Adquira espaço na nossa camisa de equipe, com preços por cm².</p>
+      <div class="placeholder">[Em Desenvolvimento]</div>
+    </section>
+
+    <section>
+        <h2>Pit Display</h2>
+        <p>Como funciona o Patrocínio Display? Basicamente, cada quadradinho indica um preço e uma posse para quem quiser ter.
+           Para comprar é simples, basta selecionar todos os quadrados que deseja comprar e apertar no botão "Salvar Quadrados" e logo em seguida, 
+           efetuar o pagamento pelo whatsapp, informar os botões que selecionou e garantir seu espaço... (para acessar o whatsapp, entrar na aba contatos ou clicando <a href="contatos.html">AQUI.</a>)</p>
+           <p>Caso selecionar um quadrado mas desistir no meio do caminho, basta selecionar o botão "Resetar meus Quadrados" que nenhum será salvo.</p>
+        <p>
+           Reserve espaço no Pit Display, dividido em áreas laterais e centrais:
+        </p>
+        <ul>
+          <li>Quadrados nas áreas laterais: R$ 11,00 por unidade.</li>
+          <li class="informacao-central">Quadrados nas áreas central: 3 preços definidos por localização da unidade.</li>
+        </ul>
+      
+        <div id="pit-display-container">
+            <!-- Tabuleiro lateral esquerda -->
+            <div class="tabuleiro-wrapper">
+              <div class="marcacao marcacao-lateral"></div>
+              <div class="marcacao marcacao-superior"></div>
+              <div id="pit-lateral-esquerda" class="tabuleiro"></div>
+              
+            </div>
+          
+            <!-- Tabuleiro central ( o de cor que tem que ser diferente) -->
+            <div class="tabuleiro-wrapper">
+              <div class="marcacao marcacao-lateral"></div>
+              <div class="marcacao marcacao-superior"></div>
+              <div id="pit-central" class="tabuleiro"></div>
+              <button id="resetar-meus-quadrados">Resetar Meus Quadrados</button>
+              <button id="salvar-quadrados">Salvar Quadrado</button>
+
+            </div>
+          
+            <!-- Tabuleiro lateral direita -->
+            <div class="tabuleiro-wrapper">
+              <div class="marcacao marcacao-lateral"></div>
+              <div class="marcacao marcacao-superior"></div>
+              <div id="pit-lateral-direita" class="tabuleiro"></div>
+              
+            </div>
+          </div>
+          
+          
+      </section>
+      
+
+    <section>
+      <h2>Protótipo</h2>
+      <p>Escolha um espaço no protótipo e personalize a posição da sua marca, com preços por mm².</p>
+      <div class="placeholder">[Em Desenvolvimento]</div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Equipe Ampharos. Todos os direitos reservados.</p>
+  </footer>
+  <script src="js/patrocinio.js"></script>
+
+</body>
+</html>
