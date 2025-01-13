@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     adicionarMarcacoes(wrapper, lateral, superior);
   });
 
-  document.getElementById("salvar-quadrado").addEventListener("click", () => {
+  document.getElementById("salvar-quadrados").addEventListener("click", () => {
     quadradosSelecionados.forEach((quadrado) => {
       const idQuadrado = quadrado.dataset.id;
 
