@@ -3,6 +3,7 @@ body, h1, h2, p {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color:#333;
   }
   
   body {
@@ -27,7 +28,7 @@ body, h1, h2, p {
     display: block;
     width: 60px;
     height: 3px;
-    background: #ffda00;
+    background: #f63500;
     margin: 10px auto 0;
   }
   
