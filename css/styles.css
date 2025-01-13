@@ -1,148 +1,135 @@
 /* Reset básico */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #000000;
-    color: #040404;
-    padding: 20px;
-  }
-  
-  /* Header */
-  header {
-    background: #f4d326;
-    color: #fff;
-    padding: 10px 10px;
-    text-align: center;
-  }
-
-   
-/* alteração das caixinhas do menu */ 
-
-  
-
-  header a{
-    color: #0a0a0a;
-    text-decoration: none;
-    display: inline-block;
-    transition: .2s;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-header a:hover{
-    color: #ff1212 ;
-    transform: scale(1.05);
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #000;
+  color: #fff;
+  line-height: 1.6;
 }
 
-header nav ul{
-    list-style-type: none;
-
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f4d326;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-header nav ul li{
-    display: inline-block;
-    padding: 0 40px;
-
-}
-  /* alteração das caixinhas do menu */
-  
-  /* Main content */
-  main {
-    margin-top: 20px;
-  }
-  
-  section {
-    background: linear-gradient(to bottom right, #f2f2f2, #e0e0e0); /* Gradiente suave */
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    padding: 30px;
-    margin-bottom: 40px;
-    position: relative; /* Para adicionar elementos como ícones */
-    overflow: hidden; /* Para criar efeitos de corte */
-  }
-  
-  section::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    z-index: -1;
-    transform: skewY(-5deg);
-  }
-  
-  section:hover::before {
-    transform: skewY(5deg);
-  }
-  
-
-  section h2 {
-    color: #333;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2rem;
-    margin-bottom: 15px;
-  }
-  section p {
-  margin-bottom: 10px;
-    
- }
-  section ul {
-  margin-top: 10px;
-  margin-left: 20px;
-  list-style: disc;
- }
-  
-  /* ... outros estilos ... */
-  
-  /* Placeholder styles */
-  .placeholder {
-    height: 150px;
-    background: #e0e0e0;
-    border: 1px dashed #999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: #666;
-    margin-top: 10px;
-  }
-  
-  /* Footer */
-  footer {
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px;
-    background: #333;
-    color: #fff;
-  }
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    height: 400px;
-    position: relative;
-    animation: flutuar 2s ease-in-out infinite alternate;
-    align-items: center;
-    gap: 20px; /* Espaço de 20px entre a imagem e o título */
-}
- 
-@keyframes flutuar{
-    0%{
-        top:0;
-
-    }
-    100%{
-        top:30px;
-    }
+/* Estilo para a expansão do texto */
+.info-box {
+  position: relative;
+  margin: 20px 0;
+  overflow: hidden;
+  cursor: pointer;
 }
 
-h1 {
-  margin-bottom: 10px;
+.info-summary {
+  font-size: 1rem;
+  color: #969494;
+}
+
+.info-full {
+  font-size: 0.9rem;
   color: #ffffff;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+/* Quando passar o mouse */
+.info-box:hover .info-full {
+  max-height: 200px; /* Ajuste o tamanho máximo conforme necessário */
+  opacity: 1;
+}
+
+.info-box:hover .info-summary {
+  opacity: 0;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 50px;
+  height: auto;
+}
+
+.site-title {
+  color: #0a0a0a;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  color: #0a0a0a;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+nav a:hover {
+  color: #871e19;
+}
+
+/* Hero Section */
+.hero-section {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.hero-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.hero-title {
+  margin-top: 20px;
+  font-size: 2rem;
+  color: #f4d326;
+}
+
+/* Seções */
+section {
+  background: linear-gradient(to bottom right, #282828, #1b1b1b);
+  padding: 30px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+section h2 {
+  color: #f4d326;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+}
+
+section p {
+  color: #ccc;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #111;
+  color: #777;
 }
