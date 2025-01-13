@@ -1,0 +1,148 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #000000;
+    color: #040404;
+    padding: 20px;
+  }
+  
+  /* Header */
+  header {
+    background: #f4d326;
+    color: #fff;
+    padding: 10px 10px;
+    text-align: center;
+  }
+
+   
+/* alteração das caixinhas do menu */ 
+
+  
+
+  header a{
+    color: #0a0a0a;
+    text-decoration: none;
+    display: inline-block;
+    transition: .2s;
+}
+
+header a:hover{
+    color: #ff1212 ;
+    transform: scale(1.05);
+}
+
+header nav ul{
+    list-style-type: none;
+
+}
+
+header nav ul li{
+    display: inline-block;
+    padding: 0 40px;
+
+}
+  /* alteração das caixinhas do menu */
+  
+  /* Main content */
+  main {
+    margin-top: 20px;
+  }
+  
+  section {
+    background: linear-gradient(to bottom right, #f2f2f2, #e0e0e0); /* Gradiente suave */
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    margin-bottom: 40px;
+    position: relative; /* Para adicionar elementos como ícones */
+    overflow: hidden; /* Para criar efeitos de corte */
+  }
+  
+  section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: -1;
+    transform: skewY(-5deg);
+  }
+  
+  section:hover::before {
+    transform: skewY(5deg);
+  }
+  
+
+  section h2 {
+    color: #333;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+  section p {
+  margin-bottom: 10px;
+    
+ }
+  section ul {
+  margin-top: 10px;
+  margin-left: 20px;
+  list-style: disc;
+ }
+  
+  /* ... outros estilos ... */
+  
+  /* Placeholder styles */
+  .placeholder {
+    height: 150px;
+    background: #e0e0e0;
+    border: 1px dashed #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background: #333;
+    color: #fff;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    position: relative;
+    animation: flutuar 2s ease-in-out infinite alternate;
+    align-items: center;
+    gap: 20px; /* Espaço de 20px entre a imagem e o título */
+}
+ 
+@keyframes flutuar{
+    0%{
+        top:0;
+
+    }
+    100%{
+        top:30px;
+    }
+}
+
+h1 {
+  margin-bottom: 10px;
+  color: #ffffff;
+}
