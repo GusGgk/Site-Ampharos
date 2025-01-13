@@ -89,6 +89,7 @@ body {
   top: -20px; /* Ajuste para posicionar acima do tabuleiro */
   left: 1px; /* Alinhar ao início */
   display: flex;
+  color: #f4c20d;
   justify-content: space-between;
   width: 95%;
 }
@@ -100,6 +101,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   height: 90%;
+  color: #f4c20d;
 }
 
 .marcacao span {
@@ -128,7 +130,7 @@ body {
 
 /* Quadrados selecionados */
 .quadrado.selecionado {
-  outline: 4px solid red;
+  outline: 4px solid #871e19;
   outline-offset: -4px;
 }
 
