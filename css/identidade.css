@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Estilo específico para a aba Identidade Visual */
 h1{
     color: #000;
@@ -41,3 +42,48 @@ h1{
 .logos-container img:hover {
     transform: scale(1.1);
 }
+=======
+/* Estilo específico para a aba Identidade Visual */
+h1{
+    color: #000;
+}
+/* Paleta de cores */
+.paleta-cores {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    padding: 0;
+    list-style: none;
+}
+
+.paleta-cores li {
+    width: 150px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Container de logos */
+.logos-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.logos-container img {
+    width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.logos-container img:hover {
+    transform: scale(1.1);
+}
+>>>>>>> 7feb24d154efb71d9eb0d4828e6e87a9a01e2951

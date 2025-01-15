@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Reset básico */
 * {
   margin: 0;
@@ -133,3 +134,140 @@ footer {
   background: #111;
   color: #777;
 }
+=======
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #000;
+  color: #fff;
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f4d326;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para a expansão do texto */
+.info-box {
+  position: relative;
+  margin: 20px 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.info-summary {
+  font-size: 1rem;
+  color: #969494;
+}
+
+.info-full {
+  font-size: 0.9rem;
+  color: #ffffff;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+/* Quando passar o mouse */
+.info-box:hover .info-full {
+  max-height: 200px; /* Ajuste o tamanho máximo conforme necessário */
+  opacity: 1;
+}
+
+.info-box:hover .info-summary {
+  opacity: 0;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 50px;
+  height: auto;
+}
+
+.site-title {
+  color: #0a0a0a;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  color: #0a0a0a;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+nav a:hover {
+  color: #871e19;
+}
+
+/* Hero Section */
+.hero-section {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.hero-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.hero-title {
+  margin-top: 20px;
+  font-size: 2rem;
+  color: #f4d326;
+}
+
+/* Seções */
+section {
+  background: linear-gradient(to bottom right, #282828, #1b1b1b);
+  padding: 30px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+section h2 {
+  color: #f4d326;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+}
+
+section p {
+  color: #ccc;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #111;
+  color: #777;
+}
+>>>>>>> 7feb24d154efb71d9eb0d4828e6e87a9a01e2951
