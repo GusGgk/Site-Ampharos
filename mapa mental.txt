@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 Ampharos-Patrocinios/
 │
 ├── index.html        # Página inicial do site (a ser desenvolvida depois)
@@ -14,20 +14,3 @@ Ampharos-Patrocinios/
 ├── img/              # Imagens e ícones do projeto
 └── data/
     └── data.json     # Dados estáticos (opcional, caso necessário para os quadrados e preços)
-=======
-Ampharos-Patrocinios/
-│
-├── index.html        # Página inicial do site (a ser desenvolvida depois)
-├── patrocinio.html   # Aba principal para patrocínios
-├── css/
-│   ├── styles.css    # Estilos globais do site
-│   ├── patrocinio.css # Estilos específicos para a aba de patrocínios
-│
-├── js/
-│   ├── main.js       # JavaScript global
-│   ├── patrocinio.js # Lógica específica para a aba de patrocínios
-│
-├── img/              # Imagens e ícones do projeto
-└── data/
-    └── data.json     # Dados estáticos (opcional, caso necessário para os quadrados e preços)
->>>>>>> 7feb24d154efb71d9eb0d4828e6e87a9a01e2951
