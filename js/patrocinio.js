@@ -92,10 +92,13 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const salvarQuadrados = async () => {
+    console.log("Iniciando salvamento...");
+  
     try {
       for (const quadrado of quadradosSelecionados) {
         const id = quadrado.dataset.id;
-
+        console.log(`Salvando quadrado: ${id}`);
+  
         const response = await fetch("http://127.0.0.1:5000/quadrados", {
           method: "POST",
           headers: {
@@ -106,20 +109,27 @@ document.addEventListener("DOMContentLoaded", () => {
             usuario: usuarioAtual,
           }),
         });
-
+  
         if (response.ok) {
+          console.log(`Quadrado ${id} salvo com sucesso!`);
+  
+          // Atualizar visualmente
           quadrado.classList.add("reservado");
           quadrado.classList.remove("selecionado");
           quadrado.style.backgroundColor = "#000";
           quadrado.dataset.dono = usuarioAtual;
+  
+          // Remover da lista de quadrados selecionados
           quadradosSelecionados.delete(quadrado);
         } else {
           const erro = await response.json();
+          console.error(`Erro ao salvar quadrado ${id}:`, erro.error);
           alert(erro.error || "Erro ao salvar quadrado!");
         }
       }
     } catch (error) {
-      console.error("Erro ao salvar quadrados:", error);
+      console.error("Erro na comunicação com o backend:", error);
+      alert("Erro ao conectar com o servidor.");
     }
   };
 
