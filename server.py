@@ -1,34 +1,53 @@
-from flask import Flask, jsonify, request
+from flask import Flask, request, jsonify
+import json
 
 app = Flask(__name__)
 
-# Lista de quadrados selecionados
-# Cada quadrado será representado por um dicionário com as informações do patrocinador e posição.
-quadrados_selecionados = []
+# Arquivo para salvar as reservas
+RESERVAS_FILE = "reservas.json"
 
-@app.route('/quadrados', methods=['GET'])
-def get_quadrados():
-    """Retorna a lista de quadrados selecionados."""
-    return jsonify(quadrados_selecionados)
+# Função para carregar reservas do arquivo
+def carregar_reservas():
+    try:
+        with open(RESERVAS_FILE, "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []
 
-@app.route('/quadrados', methods=['POST'])
-def add_quadrado():
-    """Adiciona um novo quadrado."""
-    data = request.get_json()
-    # Verifica se o quadrado já foi selecionado
-    for quadrado in quadrados_selecionados:
-        if quadrado['id'] == data['id']:
-            return jsonify({'error': 'Quadrado já selecionado!'}), 400
+# Função para salvar reservas no arquivo
+def salvar_reservas(reservas):
+    with open(RESERVAS_FILE, "w") as file:
+        json.dump(reservas, file)
 
-    quadrados_selecionados.append(data)
-    return jsonify({'message': 'Quadrado selecionado com sucesso!'}), 201
+@app.route("/quadrados", methods=["GET"])
+def obter_quadrados():
+    reservas = carregar_reservas()
+    return jsonify(reservas)
 
-@app.route('/quadrados/<int:id>', methods=['DELETE'])
-def remove_quadrado(id):
-    """Remove um quadrado pelo ID."""
-    global quadrados_selecionados
-    quadrados_selecionados = [q for q in quadrados_selecionados if q['id'] != id]
-    return jsonify({'message': 'Quadrado removido com sucesso!'})
+@app.route("/quadrados", methods=["POST"])
+def reservar_quadrado():
+    dados = request.json
+    reservas = carregar_reservas()
 
-if __name__ == '__main__':
+    # Verificar se o quadrado já foi reservado
+    for reserva in reservas:
+        if reserva["id"] == dados["id"]:
+            return jsonify({"error": "Quadrado já reservado!"}), 400
+
+    # Adicionar nova reserva
+    reservas.append({
+        "id": dados["id"],
+        "usuario": dados["usuario"]
+    })
+    salvar_reservas(reservas)
+    return jsonify({"message": "Reserva feita com sucesso!"}), 200
+
+@app.route("/quadrados/<quadrado_id>", methods=["DELETE"])
+def remover_reserva(quadrado_id):
+    reservas = carregar_reservas()
+    reservas = [reserva for reserva in reservas if reserva["id"] != quadrado_id]
+    salvar_reservas(reservas)
+    return jsonify({"message": "Reserva removida com sucesso!"}), 200
+
+if __name__ == "__main__":
     app.run(debug=True)

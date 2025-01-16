@@ -1,66 +1,40 @@
-// Código JS adaptado para sincronizar com o servidor
-const usuarioAtual = localStorage.getItem("usuarioID") || (() => {
-  const id = `usuario-${crypto.randomUUID()}`;
-  localStorage.setItem("usuarioID", id);
-  return id;
-})();
-
-const quadradosSelecionados = new Set();
-let quadradosReservados = [];
-
-// Função para carregar os quadrados reservados do servidor
-const carregarReservas = async () => {
-  try {
-    const response = await fetch("/api/reservados"); // Rota do servidor para buscar reservas
-    if (response.ok) {
-      quadradosReservados = await response.json();
-    } else {
-      console.error("Erro ao carregar reservas do servidor.");
-    }
-  } catch (error) {
-    console.error("Erro na comunicação com o servidor:", error);
+document.addEventListener("DOMContentLoaded", () => {
+  let usuarioAtual = localStorage.getItem("usuarioID");
+  if (!usuarioAtual) {
+    usuarioAtual = `usuario-${crypto.randomUUID()}`;
+    localStorage.setItem("usuarioID", usuarioAtual);
   }
-};
 
-// Função para atualizar o servidor com as novas reservas
-const salvarReservasNoServidor = async (reservas) => {
-  try {
-    const response = await fetch("/api/reservar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(reservas),
-    });
-    if (!response.ok) {
-      console.error("Erro ao salvar reservas no servidor.");
-    }
-  } catch (error) {
-    console.error("Erro na comunicação com o servidor:", error);
-  }
-};
+  const quadradosSelecionados = new Set();
 
-// Criação do tabuleiro
-const criarTabuleiro = (container, isCentral) => {
-  for (let i = 0; i < 64; i++) {
-    const quadrado = document.createElement("div");
-    quadrado.className = "quadrado";
+  const criarTabuleiro = (container, isCentral) => {
+    for (let i = 0; i < 64; i++) {
+      const quadrado = document.createElement("div");
+      quadrado.className = "quadrado";
 
-    const idQuadrado = `${container.id}-${i}`;
-    quadrado.dataset.id = idQuadrado;
+      const idQuadrado = `${container.id}-${i}`;
+      quadrado.dataset.id = idQuadrado;
 
-    const reservado = quadradosReservados.find((q) => q.id === idQuadrado);
-    if (reservado) {
-      quadrado.classList.add("reservado");
-      quadrado.style.backgroundColor = "#000";
-      quadrado.dataset.preco = "";
-      quadrado.dataset.dono = reservado.usuario;
-    } else {
+      quadrado.addEventListener("click", () => {
+        if (quadradosSelecionados.has(quadrado)) {
+          quadradosSelecionados.delete(quadrado);
+          quadrado.classList.remove("selecionado");
+        } else {
+          quadradosSelecionados.add(quadrado);
+          quadrado.classList.add("selecionado");
+        }
+      });
+
+      // Regras para quadrados centrais
       if (isCentral) {
         const linha = Math.floor(i / 8) + 1;
         const coluna = (i % 8) + 1;
 
-        const quadradosEspeciais = ["D1", "D2", "D7", "D8", "E1", "E2", "E7", "E8"];
+        const quadradosEspeciais = [
+          "D1", "D2", "D7", "D8",
+          "E1", "E2", "E7", "E8",
+        ];
+
         const letraColuna = String.fromCharCode(64 + coluna);
         const posicaoAtual = `${letraColuna}${linha}`;
 
@@ -79,43 +53,109 @@ const criarTabuleiro = (container, isCentral) => {
         quadrado.style.backgroundColor = "#fff";
         quadrado.dataset.preco = "R$ 11,00";
       }
-    }
 
-    if (!quadrado.classList.contains("reservado")) {
-      quadrado.addEventListener("click", () => {
-        if (quadradosSelecionados.has(quadrado)) {
-          quadradosSelecionados.delete(quadrado);
-          quadrado.classList.remove("selecionado");
-        } else {
-          quadradosSelecionados.add(quadrado);
-          quadrado.classList.add("selecionado");
+      container.appendChild(quadrado);
+    }
+  };
+
+  const adicionarMarcacoes = (wrapper, lateral, superior) => {
+    for (let i = 1; i <= 8; i++) {
+      const numero = document.createElement("span");
+      numero.textContent = i;
+      lateral.appendChild(numero);
+    }
+    for (let i = 0; i < 8; i++) {
+      const letra = document.createElement("span");
+      letra.textContent = String.fromCharCode(65 + i);
+      superior.appendChild(letra);
+    }
+  };
+
+  const carregarQuadradosReservados = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/quadrados");
+      const reservas = await response.json();
+
+      reservas.forEach(({ id, usuario }) => {
+        const quadrado = document.querySelector(`[data-id="${id}"]`);
+        if (quadrado) {
+          quadrado.classList.add("reservado");
+          quadrado.style.backgroundColor = "#000";
+          quadrado.dataset.preco = "";
+          quadrado.dataset.dono = usuario;
+          quadrado.removeEventListener("click", () => {});
         }
       });
+    } catch (error) {
+      console.error("Erro ao carregar reservas:", error);
     }
+  };
 
-    container.appendChild(quadrado);
-  }
-};
+  const salvarQuadrados = async () => {
+    try {
+      for (const quadrado of quadradosSelecionados) {
+        const id = quadrado.dataset.id;
 
-// Adicionar marcações
-const adicionarMarcacoes = (wrapper, lateral, superior) => {
-  for (let i = 1; i <= 8; i++) {
-    const numero = document.createElement("span");
-    numero.textContent = i;
-    lateral.appendChild(numero);
-  }
-  for (let i = 0; i < 8; i++) {
-    const letra = document.createElement("span");
-    letra.textContent = String.fromCharCode(65 + i);
-    superior.appendChild(letra);
-  }
-};
+        const response = await fetch("http://127.0.0.1:5000/quadrados", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id,
+            usuario: usuarioAtual,
+          }),
+        });
 
-// Inicialização do tabuleiro
-const inicializarTabuleiro = async () => {
-  await carregarReservas();
+        if (response.ok) {
+          quadrado.classList.add("reservado");
+          quadrado.classList.remove("selecionado");
+          quadrado.style.backgroundColor = "#000";
+          quadrado.dataset.dono = usuarioAtual;
+          quadradosSelecionados.delete(quadrado);
+        } else {
+          const erro = await response.json();
+          alert(erro.error || "Erro ao salvar quadrado!");
+        }
+      }
+    } catch (error) {
+      console.error("Erro ao salvar quadrados:", error);
+    }
+  };
+
+  const resetarMeusQuadrados = async () => {
+    try {
+      const quadradosReservados = document.querySelectorAll(".quadrado.reservado");
+
+      for (const quadrado of quadradosReservados) {
+        if (quadrado.dataset.dono === usuarioAtual) {
+          const id = quadrado.dataset.id;
+
+          const response = await fetch(`http://127.0.0.1:5000/quadrados/${id}`, {
+            method: "DELETE",
+          });
+
+          if (response.ok) {
+            quadrado.classList.remove("reservado");
+            quadrado.dataset.dono = "";
+
+            if (quadrado.style.backgroundColor === "rgb(173, 216, 230)") {
+              quadrado.dataset.preco = "R$ 30,00";
+            } else if (quadrado.classList.contains("quadrado-central")) {
+              quadrado.dataset.preco = "R$ 35,00";
+            } else {
+              quadrado.dataset.preco = "R$ 25,00";
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Erro ao resetar quadrados:", error);
+    }
+  };
 
   const tabuleiroWrappers = document.querySelectorAll(".tabuleiro-wrapper");
+
   tabuleiroWrappers.forEach((wrapper) => {
     const lateral = wrapper.querySelector(".marcacao-lateral");
     const superior = wrapper.querySelector(".marcacao-superior");
@@ -125,33 +165,9 @@ const inicializarTabuleiro = async () => {
     criarTabuleiro(tabuleiro, isCentral);
     adicionarMarcacoes(wrapper, lateral, superior);
   });
-};
 
-// Salvar quadrados selecionados
-const salvarQuadrados = async () => {
-  const reservas = [];
-  quadradosSelecionados.forEach((quadrado) => {
-    const idQuadrado = quadrado.dataset.id;
-    reservas.push({ id: idQuadrado, usuario: usuarioAtual });
+  carregarQuadradosReservados();
 
-    quadrado.classList.add("reservado");
-    quadrado.classList.remove("selecionado");
-    quadrado.style.backgroundColor = "#000";
-    quadrado.dataset.preco = "";
-    quadrado.dataset.dono = usuarioAtual;
-  });
-
-  await salvarReservasNoServidor(reservas);
-  quadradosSelecionados.clear();
-};
-
-document.getElementById("salvar-quadrado").addEventListener("click", salvarQuadrados);
-
-// Resetar quadrados do usuário atual
-document.getElementById("resetar-meus-quadrados").addEventListener("click", async () => {
-  quadradosReservados = quadradosReservados.filter((q) => q.usuario !== usuarioAtual);
-  await salvarReservasNoServidor(quadradosReservados);
-  inicializarTabuleiro();
+  document.getElementById("salvar-quadrado").addEventListener("click", salvarQuadrados);
+  document.getElementById("resetar-meus-quadrados").addEventListener("click", resetarMeusQuadrados);
 });
-
-inicializarTabuleiro();
