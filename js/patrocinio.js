@@ -99,16 +99,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const id = quadrado.dataset.id;
         console.log(`Salvando quadrado: ${id}`);
   
-        const response = await fetch("http://127.0.0.1:5000/quadrados", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id,
-            usuario: usuarioAtual,
-          }),
-        });
+        const response = await fetch("https://seu-projeto.onrender.com/quadrados");
+
   
         if (response.ok) {
           console.log(`Quadrado ${id} salvo com sucesso!`);
