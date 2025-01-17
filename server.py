@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Importar o CORS
 import json
 
 app = Flask(__name__)
+CORS(app)  # Ativar CORS para todas as rotas
 
 # Arquivo para salvar as reservas
 RESERVAS_FILE = "reservas.json"
