@@ -99,8 +99,19 @@ document.addEventListener("DOMContentLoaded", () => {
         const id = quadrado.dataset.id;
         console.log(`Salvando quadrado: ${id}`);
   
-        const response = await fetch("https://seu-projeto.onrender.com/quadrados");
+        const response = await fetch("https://site-ampharos.onrender.com/quadrados");
+        const API_BASE_URL = "https://site-ampharos.onrender.com";
 
+        fetch(`${API_BASE_URL}/quadrados`)
+          .then((response) => response.json())
+          .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error("Erro ao carregar dados:", error);
+         });
+
+        
   
         if (response.ok) {
           console.log(`Quadrado ${id} salvo com sucesso!`);
