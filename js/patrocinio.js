@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
     usuarioAtual = `usuario-${crypto.randomUUID()}`;
     localStorage.setItem("usuarioID", usuarioAtual);
   }
+  const API_BASE_URL = window.location.hostname.includes("localhost")
+  ? "http://127.0.0.1:5000" // URL local para desenvolvimento
+  : "https://site-ampharos.onrender.com"; // URL do backend no Render
 
   const quadradosSelecionados = new Set();
 
@@ -73,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const carregarQuadradosReservados = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/quadrados");
+      const response = await fetch(`${API_BASE_URL}/quadrados`);
       const reservas = await response.json();
 
       reservas.forEach(({ id, usuario }) => {
@@ -93,25 +96,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const salvarQuadrados = async () => {
     console.log("Iniciando salvamento...");
-  
     try {
       for (const quadrado of quadradosSelecionados) {
         const id = quadrado.dataset.id;
-        console.log(`Salvando quadrado: ${id}`);
   
-        const response = await fetch("https://site-ampharos.onrender.com/quadrados");
-        const API_BASE_URL = "https://site-ampharos.onrender.com";
-
-        fetch(`${API_BASE_URL}/quadrados`)
-          .then((response) => response.json())
-          .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => {
-          console.error("Erro ao carregar dados:", error);
-         });
-
-        
+        console.log(`Salvando quadrado: ${id}`);
+        const response = await fetch(`${API_BASE_URL}/quadrados`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: id,
+            usuario: usuarioAtual,
+          }),
+        });
   
         if (response.ok) {
           console.log(`Quadrado ${id} salvo com sucesso!`);
@@ -135,6 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Erro ao conectar com o servidor.");
     }
   };
+  
 
   const resetarMeusQuadrados = async () => {
     try {
@@ -143,11 +143,10 @@ document.addEventListener("DOMContentLoaded", () => {
       for (const quadrado of quadradosReservados) {
         if (quadrado.dataset.dono === usuarioAtual) {
           const id = quadrado.dataset.id;
-
-          const response = await fetch(`http://127.0.0.1:5000/quadrados/${id}`, {
+          const response = await fetch(`${API_BASE_URL}/quadrados/${id}`,{
             method: "DELETE",
           });
-
+          
           if (response.ok) {
             quadrado.classList.remove("reservado");
             quadrado.dataset.dono = "";
