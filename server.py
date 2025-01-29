@@ -1,57 +1,57 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS  # Importar o CORS
-import json
+from flask import Flask, jsonify, request
+import psycopg2
+from psycopg2.extras import RealDictCursor
+import os
 
 app = Flask(__name__)
-CORS(app)  # Ativar CORS para todas as rotas
 
-# Arquivo para salvar as reservas
-RESERVAS_FILE = "reservas.json"
+# Conexão com o banco de dados
+DATABASE_URL = os.getenv("DATABASE_URL")  # Carrega a URL do banco de dados das variáveis de ambiente
+conn = psycopg2.connect(DATABASE_URL)
 
-# Função para carregar reservas do arquivo
+# Função para criar a tabela (execute uma vez)
+def criar_tabela():
+    with conn.cursor() as cur:
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS reservas (
+                id SERIAL PRIMARY KEY,
+                quadrado_id VARCHAR(50) UNIQUE NOT NULL,
+                usuario VARCHAR(50) NOT NULL
+            );
+        """)
+        conn.commit()
+
+# Rota para carregar reservas
+@app.route("/reservas", methods=["GET"])
 def carregar_reservas():
-    try:
-        with open(RESERVAS_FILE, "r") as file:
-            return json.load(file)
-    except FileNotFoundError:
-        return []
-
-# Função para salvar reservas no arquivo
-def salvar_reservas(reservas):
-    with open(RESERVAS_FILE, "w") as file:
-        json.dump(reservas, file)
-
-@app.route("/quadrados", methods=["GET"])
-def obter_quadrados():
-    reservas = carregar_reservas()
+    with conn.cursor(cursor_factory=RealDictCursor) as cur:
+        cur.execute("SELECT * FROM reservas;")
+        reservas = cur.fetchall()
     return jsonify(reservas)
 
-@app.route("/quadrados", methods=["POST"])
-def reservar_quadrado():
+# Rota para salvar reservas
+@app.route("/reservas", methods=["POST"])
+def salvar_reserva():
     dados = request.json
-    reservas = carregar_reservas()
+    quadrado_id = dados.get("quadrado_id")
+    usuario = dados.get("usuario")
+    with conn.cursor() as cur:
+        cur.execute("""
+            INSERT INTO reservas (quadrado_id, usuario)
+            VALUES (%s, %s)
+            ON CONFLICT (quadrado_id) DO NOTHING;
+        """, (quadrado_id, usuario))
+        conn.commit()
+    return jsonify({"mensagem": "Reserva salva com sucesso!"})
 
-    # Verificar se o quadrado já foi reservado
-    for reserva in reservas:
-        if reserva["id"] == dados["id"]:
-            return jsonify({"error": "Quadrado já reservado!"}), 400
-
-    # Adicionar nova reserva
-    reservas.append({
-        "id": dados["id"],
-        "usuario": dados["usuario"]
-    })
-    salvar_reservas(reservas)
-    return jsonify({"message": "Reserva feita com sucesso!"}), 200
-
-@app.route("/quadrados/<quadrado_id>", methods=["DELETE"])
+# Rota para remover reservas
+@app.route("/reservas/<quadrado_id>", methods=["DELETE"])
 def remover_reserva(quadrado_id):
-    reservas = carregar_reservas()
-    reservas = [reserva for reserva in reservas if reserva["id"] != quadrado_id]
-    salvar_reservas(reservas)
-    return jsonify({"message": "Reserva removida com sucesso!"}), 200
-
+    with conn.cursor() as cur:
+        cur.execute("DELETE FROM reservas WHERE quadrado_id = %s;", (quadrado_id,))
+        conn.commit()
+    return jsonify({"mensagem": "Reserva removida com sucesso!"})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
-
+    criar_tabela()
+    app.run(host="0.0.0.0", port=5000)
