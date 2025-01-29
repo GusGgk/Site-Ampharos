@@ -5,9 +5,8 @@ import os
 
 app = Flask(__name__)
 
-# Conexão com o banco de dados
-DATABASE_URL = os.getenv("DATABASE_URL")  # Carrega a URL do banco de dados das variáveis de ambiente
-conn = psycopg2.connect(DATABASE_URL)
+# Conexão com o banco de dados local
+conn = psycopg2.connect("postgresql://postgres:gu260806@localhost:5432/postgres")
 
 # Função para criar a tabela (execute uma vez)
 def criar_tabela():
@@ -51,7 +50,6 @@ def remover_reserva(quadrado_id):
         cur.execute("DELETE FROM reservas WHERE quadrado_id = %s;", (quadrado_id,))
         conn.commit()
     return jsonify({"mensagem": "Reserva removida com sucesso!"})
-
 
 if __name__ == "__main__":
     criar_tabela()
