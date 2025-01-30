@@ -9,7 +9,8 @@ CORS(app)  # Habilitando CORS para o front-end
 
 # Configuração do banco de dados com suporte a variáveis de ambiente
 DATABASE_URL = os.environ.get("DATABASE_URL", "postgresql://usuario:senha@host:porta/banco")
-conn = psycopg2.connect(os.environ['DATABASE_URL'])
+conn = psycopg2.connect(os.environ.get("DATABASE_URL"))
+
 
 # Função para criar a tabela (execute uma vez)
 def criar_tabela():
