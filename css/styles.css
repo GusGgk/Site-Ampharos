@@ -163,15 +163,17 @@ footer {
   }
 
   .info-box {
-    cursor: pointer; /* Indica que pode ser clicado */
+    pointer-events: auto;
+    cursor: pointer;
+     /* Indica que pode ser clicado */
   }
 
   .info-summary {
-    display: block; /* Mostra o resumo por padrão */
+    display: none; /* Mostra o resumo por padrão */
   }
 
   .info-full {
-    display: none; /* Esconde o conteúdo completo por padrão */
+    display: block; /* Esconde o conteúdo completo por padrão */
   }
 
   /* Quando o usuário clicar, a classe "ativo" será adicionada */
