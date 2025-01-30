@@ -135,4 +135,55 @@ body {
   outline-offset: -4px;
 }
 
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  #pit-display-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .tabuleiro-wrapper {
+    width: 90%;
+  }
+
+  .tabuleiro {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(30px, 1fr)); /* Reduzindo os quadrados */
+    grid-template-rows: repeat(8, minmax(30px, 1fr));
+  }
+
+  .tabuleiro .quadrado {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .marcacao-superior {
+    top: -15px;
+    font-size: 12px;
+  }
+
+  .marcacao-lateral {
+    left: -10px;
+    font-size: 12px;
+  }
+
+  .tabuleiro-wrapper button {
+    font-size: 12px;
+    padding: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tabuleiro {
+    grid-template-columns: repeat(8, minmax(25px, 1fr));
+    grid-template-rows: repeat(8, minmax(25px, 1fr));
+  }
+
+  .tabuleiro-wrapper button {
+    font-size: 10px;
+    padding: 3px;
+  }
+}
 
