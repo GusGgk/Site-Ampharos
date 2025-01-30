@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const blocos = document.querySelectorAll(".bloco");
+    const infoBoxes = document.querySelectorAll(".info-box");
   
-    blocos.forEach(bloco => {
-      bloco.addEventListener("click", function () {
-        this.classList.toggle("ativo"); // Alterna a classe "ativo"
+    infoBoxes.forEach(box => {
+      box.addEventListener("click", function () {
+        this.classList.toggle("ativo"); // Alterna entre resumo e completo
       });
     });
   });
-  

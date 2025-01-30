@@ -162,19 +162,24 @@ footer {
     margin-bottom: 20px;
   }
 
-  .info-summary, .info-full {
-    font-size: 0.8rem;
+  .info-box {
+    cursor: pointer; /* Indica que pode ser clicado */
   }
 
-  .info-box {
-    pointer-events: auto; /* Permite clique */
-  }
-  
   .info-summary {
-    display: none; /* Oculta o conteúdo */
+    display: block; /* Mostra o resumo por padrão */
   }
 
   .info-full {
-    display: block; /* Exibe quando ativado */
+    display: none; /* Esconde o conteúdo completo por padrão */
+  }
+
+  /* Quando o usuário clicar, a classe "ativo" será adicionada */
+  .info-box.ativo .info-summary {
+    display: none; /* Esconde o resumo */
+  }
+
+  .info-box.ativo .info-full {
+    display: block; /* Exibe o conteúdo completo */
   }
 }
