@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS  # Importar o CORS
 import json
-import os
 
 app = Flask(__name__)
 CORS(app)  # Ativar CORS para todas as rotas
@@ -52,6 +51,7 @@ def remover_reserva(quadrado_id):
     salvar_reservas(reservas)
     return jsonify({"message": "Reserva removida com sucesso!"}), 200
 
+
 if __name__ == "__main__":
-    app.run(debug=True)
     app.run(host="0.0.0.0", port=5000, debug=True)
+
