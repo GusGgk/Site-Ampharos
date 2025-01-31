@@ -19,6 +19,23 @@ body {
   .informacao-central{
     margin-bottom:30px;
   }
+  .logo-camisa {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.logo-camisa img {
+    width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.logo-camisa img:hover {
+    transform: scale(1.1);
+}
   
   section {
     margin-bottom: 40px;
@@ -187,3 +204,20 @@ body {
   }
 }
 
+.prototipo {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.prototipo img {
+  width: 200px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.prototipo img:hover {
+  transform: scale(1.1);
+}
