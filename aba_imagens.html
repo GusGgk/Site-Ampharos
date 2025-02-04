@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagens - Ampharos</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/aba_imagens.css">
+</head>
+<header>
+    <nav>
+        <ul class="menu">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="patrocinio.html">Patrocínios</a></li>
+          <li><a href="identidade_visual.html">Identidade</a></li>
+          <li><a href="contatos.html">Contatos</a></li>
+          <li><a href="aba_imagens.html">Imagens</a></li>
+          <li><a href="integrantes.html">Integrantes</a></li>
+          <!-- Outras abas podem ser adicionadas aqui -->
+        </ul>
+      </nav>
+    <h1>Biblioteca de Imagens</h1>
+    
+  </header>
+  <main>
+    <div class="botoes">
+        <button onclick="mostrarGaleria('f1')" class="ativo">Fotos da F1</button>
+        <button onclick="mostrarGaleria('ftc')">Fotos da FTC</button>
+    </div>
+    <section id="f1" class="galeria ativa">
+        <div class="imagem">
+            <img src="imagens/foto1.jpg" alt="Competição F1">
+            <p>Corrida de simulação F1</p>
+        </div>
+        <!-- Adicione mais fotos da F1 -->
+    </section>
+
+    <section id="ftc" class="galeria">
+        <div class="imagem">
+            <img src="imagens/foto2.jpg" alt="Competição FTC">
+            <p>Robô FTC em ação</p>
+        </div>
+        <!-- Adicione mais fotos da FTC -->
+    </section>
+</main>
+<body>
+    <footer>
+        <p>&copy; 2025 Equipe Ampharos. Todos os direitos reservados.</p>
+      </footer>
+      <script src="js/fotos.js"></script>
+      <script src="js/main.js"></script>
+</body>
+</html>

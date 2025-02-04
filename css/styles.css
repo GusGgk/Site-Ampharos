@@ -134,7 +134,25 @@ footer {
   background: #111;
   color: #777;
 }
+/* Container de logos */
+.logos-pt {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
 
+.logos-pt img {
+  width: 200px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+  background-color: #575656;
+}
+
+.logos-pt img:hover {
+  transform: scale(1.1);
+}
 
 
 @media (max-width: 768px) {
@@ -183,4 +201,6 @@ footer {
   .info-box.ativo .info-full {
     display: block; /* Exibe o conteúdo completo */
   }
+
+  
 }
